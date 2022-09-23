@@ -356,7 +356,7 @@ describe("Deviants", () => {
     const totalTokensToMintWithDiscount = ethers.BigNumber.from("10");
     await expect(
       deviantsInstance.discountMint(1, { value: discountCost })
-    ).to.be.revertedWith("Not enough tokens for the discount'");
+    ).to.be.revertedWith("No discounts allowed'");
     await polymorphV1Instance.mint(3);
     await polymorphV2Instance.mint(3);
     await facesInstance.mint(3);
@@ -378,7 +378,8 @@ describe("Deviants", () => {
       deployer.address
     );
     expect(totalUserDiscountUsedAfterMint).eq(totalTokensToMintWithDiscount);
-    await deviantsInstance.discountMint(2, { value: discountCost.mul(2) });
+    await expect(deviantsInstance.discountMint(totalTokensToMintWithDiscount, { value: discountCost.mul(totalTokensToMintWithDiscount) })).to.be.revertedWith("No discounts allowed");
+    await expect(deviantsInstance.discountMint(2, { value: discountCost.mul(2) })).to.not.be.reverted;
     await expect(
       deviantsInstance.discountMint(1, { value: discountCost.mul(1) })
     ).to.be.revertedWith("No discounts allowed");

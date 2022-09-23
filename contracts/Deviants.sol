@@ -85,10 +85,13 @@ contract Deviants is ERC721A, ERC2981, Ownable, ReentrancyGuard {
 
         _safeMint(msg.sender, _amount);
 
-        for (uint256 i = 0; i < _amount; i++) {
-            uint256 nextTokenId = _nextTokenId();
-            _genes[nextTokenId] = geneGenerator.random();
-            emit TokenMinted(nextTokenId, msg.sender, false);
+        uint256 lastId = lastTokenId();
+
+        while (_amount > 0) {
+            _genes[lastId] = geneGenerator.random();
+            emit TokenMinted(lastId, msg.sender, false);
+            lastId--;
+            _amount--;
         }
 
         (bool transferToDaoStatus, ) = daoAddress.call{value: totalCost}("");
@@ -117,9 +120,8 @@ contract Deviants is ERC721A, ERC2981, Ownable, ReentrancyGuard {
         uint256 facesCount = facesContract.balanceOf(msg.sender);
         uint256 lobstersCount = lobstersContract.balanceOf(msg.sender);
         uint256 totalTokens = v1Count + v2Count + facesCount + lobstersCount;
-        require(_amount <= totalTokens, "Not enough tokens for the discount");
         require(
-            discountsUsed[msg.sender] < totalTokens,
+            discountsUsed[msg.sender] + _amount <= totalTokens,
             "No discounts allowed"
         );
 
@@ -129,13 +131,16 @@ contract Deviants is ERC721A, ERC2981, Ownable, ReentrancyGuard {
 
         _safeMint(msg.sender, _amount);
 
-        for (uint256 i = 0; i < _amount; i++) {
-            uint256 nextTokenId = _nextTokenId();
-            _genes[nextTokenId] = geneGenerator.random();
-            emit TokenMinted(nextTokenId, msg.sender, true);
-        }
-
         discountsUsed[msg.sender] += _amount;
+
+        uint256 lastId = lastTokenId();
+
+        while (_amount > 0) {
+            _genes[lastId] = geneGenerator.random();
+            emit TokenMinted(lastId, msg.sender, true);
+            lastId--;
+            _amount--;
+        }
 
         (bool transferToDaoStatus, ) = daoAddress.call{value: totalCost}("");
         require(
