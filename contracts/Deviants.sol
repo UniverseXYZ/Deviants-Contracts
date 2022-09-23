@@ -23,6 +23,7 @@ contract Deviants is ERC721A, ERC2981, Ownable, ReentrancyGuard {
         address _polymorphsV2Contract;
         address _facesContract;
         address _lobstersContract;
+        uint96 _royaltyFee;
     }
 
     using DeviantGeneGenerator for DeviantGeneGenerator.Gene;
@@ -66,7 +67,7 @@ contract Deviants is ERC721A, ERC2981, Ownable, ReentrancyGuard {
         polymorphsV2Contract = IERC721(params._polymorphsV2Contract);
         facesContract = IERC721(params._facesContract);
         lobstersContract = IERC721(params._lobstersContract);
-        _setDefaultRoyalty(params._daoAddress, 250);
+        _setDefaultRoyalty(params._daoAddress, params._royaltyFee);
     }
 
     modifier onlyDAO() {

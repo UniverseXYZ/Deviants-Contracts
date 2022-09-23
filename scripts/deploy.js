@@ -15,6 +15,7 @@ async function main() {
     "https://us-central1-polymorphmetadata.cloudfunctions.net/deviants-images-test?id=";
   const maxTotalSupply = 10000;
   const bulkBuyLimit = 20;
+  const royaltyFee = 250;
   const publicPrice = ethers.utils.parseEther("0.05");
   const discountPrice = ethers.utils.parseEther("0.025");
   const DAOAddress = "0x7e94e8D8c85960DBDC67E080C3D48D4e0BD423a6";
@@ -36,7 +37,8 @@ async function main() {
     _polymorphsV1Contract: polymorphV1Address,
     _polymorphsV2Contract: polymorphV2Address,
     _facesContract: facesAddress,
-    _lobstersContract: lobbyLobstersAddress
+    _lobstersContract: lobbyLobstersAddress,
+    _royaltyFee: royaltyFee
   };
 
   const Deviants = await hre.ethers.getContractFactory("Deviants");

@@ -70,6 +70,7 @@ describe("Deviants", () => {
       _polymorphsV2Contract: polymorphV2Instance.address,
       _facesContract: facesInstance.address,
       _lobstersContract: lobbyLobstersInstance.address,
+      _royaltyFee: royaltyFee
     };
 
     const Deviants = await ethers.getContractFactory("Deviants");
@@ -230,6 +231,7 @@ describe("Deviants", () => {
       _polymorphsV2Contract: polymorphV2Instance.address,
       _facesContract: facesInstance.address,
       _lobstersContract: lobbyLobstersInstance.address,
+      _royaltyFee: royaltyFee
     });
 
     await mockedDeviantsInstance.deployed();
