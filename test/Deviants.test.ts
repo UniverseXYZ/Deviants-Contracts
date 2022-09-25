@@ -17,7 +17,7 @@ describe("Deviants", () => {
   let lobbyLobstersInstance: LobbyLobsters;
   let snapshotId: any;
 
-  let name = "Deviants";
+  let name = "Deviants of Metaversia";
   let token = "DVNT";
   let baseUri = "https://us-central1-polymorphmetadata.cloudfunctions.net/deviants-images-test?id=";
   let royaltyFee = 250;

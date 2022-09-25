@@ -8,7 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const name = "Deviants";
+  const name = "Deviants of Metaversia";
   const symbol = "DVNT";
 
   const metadataURI =
