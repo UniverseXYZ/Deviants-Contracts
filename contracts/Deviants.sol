@@ -48,7 +48,7 @@ contract Deviants is ERC721A, ERC2981, Ownable, ReentrancyGuard {
 
     mapping(address => uint256) public discountsUsed;
 
-    event RoyaltiesChanged(address newReciver, uint96 value);
+    event RoyaltiesChanged(address newReceiver, uint96 value);
     event TokenMinted(
         uint256 id,
         address indexed to,
